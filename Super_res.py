@@ -11,3 +11,11 @@ def res_block(inp, filters):
     x = Conv2D(filters, 3, padding='same')(x)
     res = Add()([inp, x])
     return res
+
+
+def upsample(x, scale, num_filters):
+    factor = 2
+    x = Conv2D(num_filters * (factor ** 2), 3, padding='same')(x)
+    x = tf.nn.depth_to_space(x, factor)
+    upsampled = tf.nn.depth_to_space(x, factor)
+    return upsampled
