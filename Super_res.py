@@ -20,6 +20,7 @@ def edsr():
         res = res_block(res, num_filters)
     after_res = Conv2D(num_filters, 3, padding='same')(res)
     x = Add()([after_res, x])
+    x = upsample(x, scale, num_filters)
     x = Conv2D(3, 3, padding='same')(x)
     x = x * 127.5 + div2k_mean
     return Model(inp, x, name="edsr")
