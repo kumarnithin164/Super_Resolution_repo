@@ -41,3 +41,21 @@ def upsample(x, scale, num_filters):
     upsampled = tf.nn.depth_to_space(x, factor)
     return upsampled
 
+
+edsr_fine_tuned = edsr()
+edsr_fine_tuned.load_weights('weights-edsr-16-x4-fine-tuned.h5')
+
+
+for i in range(1,3):
+    low_res = np.array(PIL.Image.open('drive/My Drive/test' + str(i) + '.png'))
+    plt.figure(figsize=(18, 18))
+    plt.subplot(2, 2, 3)
+    plt.imshow(low_res)
+    low_res = tf.cast(tf.expand_dims(low_res, axis=0), tf.float32)
+    high_res = edsr_fine_tuned(low_res)
+    high_res = tf.clip_by_value(high_res, 0, 255)
+    high_res = tf.round(high_res)
+    high_res = tf.cast(high_res, tf.uint8)
+
+    plt.subplot(2, 2, 4)
+    plt.imshow(high_res[0])
