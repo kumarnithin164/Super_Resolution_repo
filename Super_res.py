@@ -6,7 +6,6 @@ import PIL
 import matplotlib.pyplot as plt
 
 
-<<<<<<< HEAD
 div2k_mean = np.array([0.4488, 0.4371, 0.4040]) * 255     # pre-computed div2k mean
 
 
@@ -38,6 +37,7 @@ def upsample(x, scale, num_filters):
     factor = 2
     x = Conv2D(num_filters * (factor ** 2), 3, padding='same')(x)
     x = tf.nn.depth_to_space(x, factor)
+    x = Conv2D(num_filters * (factor ** 2), 3, padding='same')(x)
     upsampled = tf.nn.depth_to_space(x, factor)
     return upsampled
 
