@@ -1,0 +1,1 @@
+This project is about converting the low resolution image into high resolution image using Enhanced Deep Residual Networks for Super Resolution. The dataset used is Div2K and L1-loss as the performance metric.
